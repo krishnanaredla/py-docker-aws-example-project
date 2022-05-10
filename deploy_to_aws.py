@@ -67,8 +67,7 @@ def main():
         username=ecr_username, password=ecr_password, registry=ecr_url)
 
     # tag image for AWS ECR
-    ecr_repo_name = '{}/{}'.format(
-        ecr_url.replace('https://', ''), LOCAL_REPOSITORY)
+    ecr_repo_name = f"{ecr_url.replace('https://', '')}/{LOCAL_REPOSITORY}"
 
     image.tag(ecr_repo_name, tag='latest')
 
@@ -101,9 +100,9 @@ def read_aws_credentials(filename='.aws_credentials.json'):
 
         for variable in ('access_key_id', 'secret_access_key', 'region'):
             if variable not in credentials.keys():
-                msg = '"{}" cannot be found in {}'.format(variable, filename)
+                msg = f'"{variable}" cannot be found in {filename}'
                 raise KeyError(msg)
-                                
+
     except FileNotFoundError:
         try:
             credentials = {
